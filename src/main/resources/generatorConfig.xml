@@ -18,7 +18,7 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://127.0.0.1:3306/order"
                         userId="root"
-                        password="*****">
+                        password="******">
         </jdbcConnection>
 
         <javaTypeResolver >
@@ -42,10 +42,11 @@
         </javaClientGenerator>
 
         <!-- 数据表进行生成操作 schema:相当于库名; tableName:表名; domainObjectName:对应的DO -->
-        <table schema="order" tableName="tb_order" domainObjectName="order"
-               enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
+        <table schema="order" tableName="tb_order" domainObjectName="TbOrder"
+               enableCountByExample="true" enableDeleteByPrimaryKey="true"
+               enableInsert="true" enableDeleteByExample="true"
+               enableSelectByExample="true" enableSelectByPrimaryKey="true"
+               enableUpdateByExample="true" enableUpdateByPrimaryKey="true">
         </table>
 
     </context>
