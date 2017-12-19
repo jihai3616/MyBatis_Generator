@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zoubb.dao.TbOrderMapper">
+  <resultMap id="BaseResultMap" type="com.zoubb.domain.TbOrder">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="CTIME" jdbcType="TIMESTAMP" property="ctime" />
+    <result column="UTIME" jdbcType="TIMESTAMP" property="utime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, PHONE, CTIME, UTIME
+  </sql>
+  <select id="selectByExample" parameterType="com.zoubb.domain.TbOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_order
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_order
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zoubb.domain.TbOrderExample">
+    delete from tb_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zoubb.domain.TbOrder">
+    insert into tb_order (ID, PHONE, CTIME, 
+      UTIME)
+    values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{ctime,jdbcType=TIMESTAMP}, 
+      #{utime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zoubb.domain.TbOrder">
+    insert into tb_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="phone != null">
+        PHONE,
+      </if>
+      <if test="ctime != null">
+        CTIME,
+      </if>
+      <if test="utime != null">
+        UTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null">
+        #{utime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zoubb.domain.TbOrderExample" resultType="java.lang.Long">
+    select count(*) from tb_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_order
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.phone != null">
+        PHONE = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ctime != null">
+        CTIME = #{record.ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.utime != null">
+        UTIME = #{record.utime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_order
+    set ID = #{record.id,jdbcType=INTEGER},
+      PHONE = #{record.phone,jdbcType=VARCHAR},
+      CTIME = #{record.ctime,jdbcType=TIMESTAMP},
+      UTIME = #{record.utime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zoubb.domain.TbOrder">
+    update tb_order
+    <set>
+      <if test="phone != null">
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="ctime != null">
+        CTIME = #{ctime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="utime != null">
+        UTIME = #{utime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zoubb.domain.TbOrder">
+    update tb_order
+    set PHONE = #{phone,jdbcType=VARCHAR},
+      CTIME = #{ctime,jdbcType=TIMESTAMP},
+      UTIME = #{utime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
